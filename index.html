@@ -19,21 +19,20 @@
   ></script>
   <script type="text/babel">
     const container = document.getElementById("root");
-    let counter = 0;
-    function countUp() {
-      counter = counter + 1;
-      render();
+
+    function App() {
+      const [counter, setCounter] = React.useState(0);
+      const onClick = () => {
+        setCounter((current) => current + 1); //현재의 state 값을 가지고 +1
+      };
+      return (
+        <div>
+          <h3>Total clicks : {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+        </div>
+      );
     }
-    function render() {
-      root.render(<App />);
-    }
-    const App = () => (
-      <div>
-        <h3>Total clicks:{counter}</h3>
-        <button onClick={countUp}>Click me</button>
-      </div>
-    );
     const root = ReactDOM.createRoot(container);
-    render();
+    root.render(<App />);
   </script>
 </html>
