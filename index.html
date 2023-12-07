@@ -18,24 +18,22 @@
     crossorigin
   ></script>
   <script type="text/babel">
-    const root = document.getElementById("root");
-    const Title = () => <h3 id="title">Hello I'm a span</h3>;
-    const Button = () => (
-      <button
-        id="btn"
-        style={{ backgroundColor: "tomato" }}
-        onClick={() => console.log("Im clicked")}
-      >
-        Click me
-      </button>
-    );
-
-    const Container = (
+    const container = document.getElementById("root");
+    let counter = 0;
+    function countUp() {
+      counter = counter + 1;
+      render();
+    }
+    function render() {
+      root.render(<App />);
+    }
+    const App = () => (
       <div>
-        <Title></Title>
-        <Button></Button>
+        <h3>Total clicks:{counter}</h3>
+        <button onClick={countUp}>Click me</button>
       </div>
     );
-    ReactDOM.createRoot(root).render(Container);
+    const root = ReactDOM.createRoot(container);
+    render();
   </script>
 </html>
