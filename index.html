@@ -9,6 +9,7 @@
     <div id="root"></div>
   </body>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src=""></script>
   <script
     src="https://unpkg.com/react@18/umd/react.development.js"
     crossorigin
@@ -17,112 +18,37 @@
     src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     crossorigin
   ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js"></script>
   <script type="text/babel">
-    const container = document.getElementById("root");
+    function Btn({ text, fontSize }) {
+      return (
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
 
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => {
-        setAmount(0);
-      };
-      const onFlip = () => {
-        reset();
-        setFlipped((current) => !current);
-      };
-      return (
-        <div>
-          <div>
-            <label htmlFor="minutes">Minutes</label>
-            <input
-              value={!flipped ? amount : Math.round(amount * 60)}
-              onChange={onChange}
-              id="minutes"
-              placegholder="Minutes"
-              type="number"
-              disabled={flipped}
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">Hours</label>
-            <input
-              value={!flipped ? Math.round(amount / 60) : amount}
-              onChange={onChange}
-              id="hours"
-              placegholder="Hours"
-              type="number"
-              disabled={!flipped}
-            />
-          </div>
-          <button onClick={reset}>RESET</button>
-          <button onClick={onFlip}>{flipped ? "Turn back" : "Invert"}</button>
-        </div>
-      );
-    }
-    function KmToMiles() {
-      const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => {
-        setAmount(0);
-      };
-      const onFlip = () => {
-        reset();
-        setFlipped((current) => !current);
-      };
-      console.log(flipped);
-      return (
-        <div>
-          <h3>KM 2 M</h3>
-          <div>
-            <input
-              onChange={onChange}
-              value={flipped ? amount * 1.609 : amount}
-              id="km"
-              type="number"
-              disabled={flipped}
-            />
-            <label htmlFor="km">km</label>
-          </div>
-          <input
-            onChange={onChange}
-            value={flipped ? amount : Math.round((amount / 1.609) * 100) / 100}
-            id="miles"
-            type="number"
-            disabled={!flipped}
-          />
-          <label htmlFor="miles">miles</label>
-          <div>
-            <button onClick={reset}>RESET</button>
-            <button onClick={onFlip}>{flipped ? "Turn back" : "Invert"}</button>
-          </div>
-        </div>
-      );
-    }
+    const MemorizedBtn = React.memo(Btn);
+
     function App() {
-      const [index, setIndex] = React.useState("1");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="xx">Select your units</option>
-            <option value="0">Minuts & Hours</option>
-            <option value="1">Km & Miles</option>
-          </select>
-          {index === "xx" ? "Please select your units" : null}
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          <Btn text="Save Changes" fontSize="18" />
+          <Btn text={14} fontSize="18" />
         </div>
       );
     }
+    const container = document.getElementById("root");
     const root = ReactDOM.createRoot(container);
     root.render(<App />);
   </script>
