@@ -49,6 +49,21 @@ React.memo는 고차 컴포넌트(Higher Order Component )임.<br>
         </div>
       );
     }
-    
+
 ### 4. Prop Types
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js"></script> //cdnjs 추가
+
+     Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
+
+    function App() {
+      return (
+        <div>
+          <Btn text="Save Changes" fontSize="18" />
+          <Btn text={14} fontSize="18" />
+        </div>
+      );
+    }
